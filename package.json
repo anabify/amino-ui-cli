@@ -1,6 +1,6 @@
 {
   "name": "amino-ui",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A CLI for adding amino-ui components to your projects.",
   "publishConfig": {
     "access": "public"
