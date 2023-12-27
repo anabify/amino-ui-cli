@@ -9,14 +9,14 @@ import { detect } from '@antfu/ni';
 import { execa } from 'execa';
 import fsExtra, { pathExists } from 'fs-extra';
 import { promises, existsSync } from 'fs';
-import { chalk } from 'chalk';
+import chalk from 'chalk';
 import { tmpdir } from 'os';
 import ora from 'ora';
 import { parse } from '@babel/parser';
 import { transformFromAstSync } from '@babel/core';
 import transformTypescript from '@babel/plugin-transform-typescript';
-import nodeFetch from 'node-fetch';
-import path from 'path';
+import fetch from 'node-fetch';
+import * as path from 'path';
 import { Command } from 'commander';
 import prompts from 'prompts';
 import * as zod from 'zod';
@@ -340,7 +340,7 @@ async function M(e) {
   try {
     return await Promise.all(
       e.map(async (r) => {
-        await (await nodeFetch(`${registryUrl}/registry/${r}`, { agent: httpsProxyAgent })).json();
+        await (await fetch(`${registryUrl}/registry/${r}`, { agent: httpsProxyAgent })).json();
       })
     );
   } catch (t) {
@@ -362,7 +362,7 @@ async function Ue(e) {
   try {
     return await Promise.all(
       e.map(async (r) => {
-        let o = await nodeFetch(`${externalRegistryUrl}/api/r/${r}`, { agent: httpsProxyAgent });
+        let o = await fetch(`${externalRegistryUrl}/api/r/${r}`, { agent: httpsProxyAgent });
 
         if (o.status === 404) throw new Error(`Component ${r} not found.`);
 
