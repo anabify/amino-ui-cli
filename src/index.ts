@@ -643,9 +643,9 @@ async function ge(e) {
 async function nt(e) {
   if (
     !(
-      existsSync(d.resolve(e, 'next.config.js')) ||
-      existsSync(d.resolve(e, 'next.config.ts')) ||
-      existsSync(d.resolve(e, 'next.config.mjs'))
+      existsSync(path.resolve(e, 'next.config.js')) ||
+      existsSync(path.resolve(e, 'next.config.ts')) ||
+      existsSync(path.resolve(e, 'next.config.mjs'))
     )
   )
 
@@ -655,8 +655,8 @@ async function nt(e) {
 
   if (!r) return null;
 
-  let o = existsSync(d.resolve(e, 'src'));
-  let n = existsSync(d.resolve(e, o ? 'src/app' : 'app'));
+  let o = existsSync(path.resolve(e, 'src'));
+  let n = existsSync(path.resolve(e, o ? 'src/app' : 'app'));
   let i = r.compilerOptions?.paths;
   let m = Object.keys(i)
     .find((g) => g.endsWith('/*'))
@@ -667,14 +667,14 @@ async function nt(e) {
     appDir: n,
     pathPrefix: m,
     tsx: await ue(e),
-    tailwindConfig: existsSync(d.resolve(e, 'tailwind.config.ts'))
+    tailwindConfig: existsSync(path.resolve(e, 'tailwind.config.ts'))
       ? 'tailwind.config.ts'
       : 'tailwind.config.js',
   };
 }
 
 async function ue(e) {
-  return await pathExists(d.resolve(e, 'tsconfig.json'));
+  return await pathExists(path.resolve(e, 'tsconfig.json'));
 }
 
 async function st(e) {
