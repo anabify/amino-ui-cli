@@ -6,7 +6,7 @@ import * as recast from 'recast';
 import { cosmiconfig } from 'cosmiconfig';
 import { createMatchPath } from 'tsconfig-paths';
 import { detect } from '@antfu/ni';
-import execa from 'execa';
+import { execa } from 'execa';
 import fsExtra, { pathExists } from 'fs-extra';
 import { promises, existsSync } from 'fs';
 import { chalk } from 'chalk';
