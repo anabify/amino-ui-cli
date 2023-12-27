@@ -280,12 +280,14 @@ function E(e) {
   typeof e == 'string' && (consoleUtils.error(e), process.exit(1)),
     e instanceof Error && (consoleUtils.error(e.message), process.exit(1)),
     p.error('Something went wrong. Please try again.'),
+
     process.exit(1);
 }
 
 async function Z() {
   try {
     let [e] = await M(['index.json']);
+
     return componentsArray.parse(e);
   } catch {
     throw new Error('Failed to fetch components from registry.');
@@ -295,6 +297,7 @@ async function Z() {
 async function Q(e) {
   try {
     let [t] = await M([`colors/${e}.json`]);
+
     return colorConfiguration.parse(t);
   } catch {
     throw new Error('Failed to fetch base color from registry.');
@@ -401,11 +404,10 @@ async function oe({ sourceFile: e, config: t }) {
         o.setModuleSpecifier(n.replace(/^@\/lib\/utils/, t.aliases.utils));
       }
     }
-    
   }
 
   return e;
-};
+}
 
 async function ne({ sourceFile: e, config: t }) {
   let r = e.getFullText();
@@ -424,7 +426,7 @@ async function ne({ sourceFile: e, config: t }) {
   if (!n || !n.ast) throw new Error('Failed to transform JSX');
 
   return recast.print(n.ast).code;
-};
+}
 
 async function se({ sourceFile: e, config: t }) {
   if (t.rsc) return e;
@@ -432,7 +434,7 @@ async function se({ sourceFile: e, config: t }) {
   let r = e.getFirstChildByKind(SyntaxKind.ExpressionStatement);
 
   return r?.getText() === '"use client"' && r.remove(), e;
-};
+}
 
 async function He(e) {
   let t = await promises.mkdtemp(path.join(tmpdir(), 'shadcn-'));
@@ -468,14 +470,14 @@ async function tt(e, t) {
     if (!n) {
       let a = await K(o);
 
-      p.warn(
+      consoleUtils.warn(
         `Configuration is missing. Please run the following command to create a ${chalk.green(
           'components.json'
         )} file.`
       );
-      p.info('');
-      p.info(` ${chalk.green(`${a} amino-ui@latest init`)}`);
-      p.info('');
+      consoleUtils.info('');
+      consoleUtils.info(` ${chalk.green(`${a} amino-ui@latest init`)}`);
+      consoleUtils.info('');
 
       process.exit(1);
     }
@@ -526,7 +528,8 @@ async function tt(e, t) {
 
     if (v.push(i), v.length || !r.yes) {
       if (!v.length) {
-        p.warn('Invalid component dependencies found. Exiting.');
+        consoleUtils.warn('Invalid component dependencies found. Exiting.');
+
         process.exit(0);
       }
     
@@ -574,6 +577,7 @@ async function tt(e, t) {
     
         if (component.dependencies?.length) {
           let packageManager = await determinePackageManager(o);
+
           await execa(packageManager, ['add', ...component.dependencies], { cwd: o });
         }
       }
@@ -594,10 +598,10 @@ async function tt(e, t) {
     
     async function determinePackageManager(cwd) {
       let packageManagerPath = await S(cwd);
+
       return path.basename(packageManagerPath);
     }
     
-
     u.succeed('Done.');
   } catch (r) {
     console.log({ error: r }), E(r);
@@ -658,9 +662,7 @@ async function nt(e) {
   let o = existsSync(path.resolve(e, 'src'));
   let n = existsSync(path.resolve(e, o ? 'src/app' : 'app'));
   let i = r.compilerOptions?.paths;
-  let m = Object.keys(i)
-    .find((g) => g.endsWith('/*'))
-    ?.slice(0, -2);
+  let m = Object.keys(i).find((g) => g.endsWith('/*'))?.slice(0, -2);
 
   return {
     srcDir: o,
