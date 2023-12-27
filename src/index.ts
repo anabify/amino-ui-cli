@@ -164,7 +164,7 @@ const initCommand = new Command()
 const componentsArray = zod.array(ProjectConfigurationSchema);
 
 const extendedProjectConfigSchema = ProjectConfigurationSchema.extend({
-  files: zod.array(s.object({ name: zod.string(), content: zod.string() })),
+  files: zod.array(zod.object({ name: zod.string(), content: zod.string() })),
 });
 
 const arrayOfExtendedProjectConfig = zod.array(extendedProjectConfigSchema);
