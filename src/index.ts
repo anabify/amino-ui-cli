@@ -279,7 +279,7 @@ async function K(e) {
 function E(e) {
   typeof e == 'string' && (consoleUtils.error(e), process.exit(1)),
     e instanceof Error && (consoleUtils.error(e.message), process.exit(1)),
-    p.error('Something went wrong. Please try again.'),
+    consoleUtils.error('Something went wrong. Please try again.'),
 
     process.exit(1);
 }
@@ -742,7 +742,7 @@ async function ft(e) {
 
     let i = await D(r, n);
 
-    p.info('');
+    consoleUtils.info('');
 
     let m = ora('Writing components.json...').start(),
       g = path.resolve(r, 'components.json');
@@ -779,13 +779,13 @@ async function ft(e) {
 
     await execa(w, [w === 'npm' ? 'install' : 'add', ...v], { cwd: r }),
       j?.succeed(),
-      p.info(''),
-      p.info(
+      consoleUtils.info(''),
+      consoleUtils.info(
         `${chalk.green(
           'Success!'
         )} Project initialization completed. You can now starting adding components.`
       ),
-      p.info('');
+      consoleUtils.info('');
   } catch (t) {
     E(t);
   }
